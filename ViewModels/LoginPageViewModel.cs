@@ -7,10 +7,33 @@ namespace MauiLoginApp.ViewModels;
 
 public class LoginPageViewModel : INotifyPropertyChanged
 {
-    private string _username;
+    #region Constructor
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    public LoginPageViewModel()
+    {
+        LoginCommand = new Command(async () => await ExecuteLoginCommand());
+    }
+
+    #endregion Constructor
+
+    #region Events
+
+    // Implement INotifyPropertyChanged interface
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    #endregion Events
+
+    #region Observable Properties
+
+    /// <summary>
+    /// Username
+    /// </summary>
     public string Username
     {
-        get { return _username; }
+        get => _username;
         set
         {
             if (_username != value)
@@ -20,10 +43,13 @@ public class LoginPageViewModel : INotifyPropertyChanged
             }
         }
     }
-    private string _password;
+
+    /// <summary>
+    /// Password
+    /// </summary>
     public string Password
     {
-        get { return _password; }
+        get => _password;
         set
         {
             if (_password != value)
@@ -33,11 +59,23 @@ public class LoginPageViewModel : INotifyPropertyChanged
             }
         }
     }
+
+    #endregion Observable Properties
+
+    #region Private Member Variables
+
+    private string _username;
+
+    private string _password;
+
+    #endregion Private Member Variables
+
+    #region Commands
     public ICommand LoginCommand { get; }
-    public LoginPageViewModel()
-    {
-        LoginCommand = new Command(async () => await ExecuteLoginCommand());
-    }
+
+    #endregion Commands
+
+    #region Command Functions
     private async Task ExecuteLoginCommand()
     {
         if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password))
@@ -61,12 +99,17 @@ public class LoginPageViewModel : INotifyPropertyChanged
         }
         await Shell.Current.GoToAsync("homepage");
     }
-    // Implement INotifyPropertyChanged interface
-    public event PropertyChangedEventHandler PropertyChanged;
+
+    #endregion Command Functions
+
+    #region Protected Functions
+
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+
+    #endregion Protected Functions
 }
 
 class LoginDto
