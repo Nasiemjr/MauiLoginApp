@@ -8,7 +8,7 @@
         <viewModels:LoginPageViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <VerticalStackLayout>
+        <VerticalStackLayout Spacing="10">
             <Entry Text="{Binding Username}" Placeholder="Username"/>
             <Entry Text="{Binding Password}" Placeholder="Password" IsPassword="True"/>
             <Button Text="Login" Command="{Binding LoginCommand}"></Button>
