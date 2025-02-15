@@ -1,7 +1,7 @@
-﻿using System.ComponentModel;
+﻿using CommunityToolkit.Mvvm.Input;
+using System.ComponentModel;
 using System.Net.Http.Json;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
 
 namespace MauiLoginApp.ViewModels;
 
@@ -14,7 +14,7 @@ public class LoginPageViewModel : INotifyPropertyChanged
     /// </summary>
     public LoginPageViewModel()
     {
-        LoginCommand = new Command(async () => await ExecuteLoginCommand());
+        LoginCommand = new RelayCommand(async () => await ExecuteLoginCommand(), CanExecuteLoginCommand);
     }
 
     #endregion Constructor
@@ -40,6 +40,7 @@ public class LoginPageViewModel : INotifyPropertyChanged
             {
                 _username = value;
                 OnPropertyChanged();
+                LoginCommand.NotifyCanExecuteChanged();
             }
         }
     }
@@ -56,6 +57,7 @@ public class LoginPageViewModel : INotifyPropertyChanged
             {
                 _password = value;
                 OnPropertyChanged();
+                LoginCommand.NotifyCanExecuteChanged();
             }
         }
     }
@@ -71,20 +73,17 @@ public class LoginPageViewModel : INotifyPropertyChanged
     #endregion Private Member Variables
 
     #region Commands
-    public ICommand LoginCommand { get; }
+    public RelayCommand LoginCommand { get; private set; }
 
     #endregion Commands
 
     #region Command Functions
+
+    /// <summary>
+    /// Login the user
+    /// </summary>
     private async Task ExecuteLoginCommand()
     {
-        if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password))
-        {
-            await Application.Current.MainPage.DisplayAlert("Error", "Invalid credentials", "Ok");
-            return;
-        }
-        // Addional validation code omitted
-        // ...
         var dto = new LoginDto
         {
             Username = Username,
@@ -98,6 +97,26 @@ public class LoginPageViewModel : INotifyPropertyChanged
             return;
         }
         await Shell.Current.GoToAsync("homepage");
+    }
+
+    /// <summary>
+    /// Can function for ExecuteLoginCommand
+    /// </summary>
+    private bool CanExecuteLoginCommand()
+    {
+        // If the username is empty
+        if(string.IsNullOrWhiteSpace(Username))
+        {
+            return false;
+        }
+
+        // If the password is empty
+        if (string.IsNullOrWhiteSpace(Password))
+        {
+            return false;
+        }
+
+        return true;
     }
 
     #endregion Command Functions
