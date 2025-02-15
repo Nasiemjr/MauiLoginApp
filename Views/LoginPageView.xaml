@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiLoginApp.Views.LoginPageView"
+             xmlns:viewModels="clr-namespace:MauiLoginApp.ViewModels"
+             Title="LoginPageView">
+    <ContentPage.BindingContext>
+        <viewModels:LoginPageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <VerticalStackLayout>
+            <Entry Text="{Binding Username}" Placeholder="Username"/>
+            <Entry Text="{Binding Password}" Placeholder="Password" IsPassword="True"/>
+            <Button Text="Login" Command="{Binding LoginCommand}"></Button>
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>

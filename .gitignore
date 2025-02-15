@@ -1,0 +1,59 @@
+# Visual Studio specific
+.vs/
+
+# Build outputs
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs and crash reports
+*.log
+hs_err_pid*
+
+# .NET Core
+project.lock.json
+project.assets.json
+artifacts/
+
+# Dependencies
+packages/
+
+# Rider & VS Code specific
+.idea/
+.vscode/
+
+# Xamarin/Maui specific
+*.apk
+*.aab
+*.ipa
+*.app
+*.xcworkspace/
+*.xcodeproj/
+*.xcuserstate
+*.DS_Store
+
+# NuGet
+*.nupkg
+*.snupkg
+
+# macOS/Linux specific
+*.DS_Store
+*.AppleDouble
+*.LSOverride
+
+# Windows specific
+Thumbs.db
+Desktop.ini
+
+# MAUI Generated Files
+platforms/
+AppPackages/
+
+# Secret or environment files
+.env
+secrets.json
